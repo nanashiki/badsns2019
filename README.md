@@ -13,16 +13,16 @@ Ruby on Railsで開発されています。
 このアプリは教育目的での利用のみを意図して作られています。  
 非常に危険なので製品の一部としてコードを流用しないでください。
 
-## Build
+## Pull
 
 ```
-$ docker build -t local/bcsec2019 .
+$ docker pull ommadawn46/badsns2019
 ```
 
 ## Run
 
 ```
-$ docker run --privileged -d --rm -p 10080:80 --name bcsec2019 local/bcsec2019
+$ docker run --privileged -d --rm -p 10080:80 --name badsns2019 ommadawn46/badsns2019
 ```
 
 ## SNS
