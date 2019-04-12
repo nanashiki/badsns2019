@@ -1,132 +1,152 @@
 .row-table {
   display: table !important;
 }
-.row-table > [class*="col-"] {
+
+.row-table>[class*="col-"] {
   float: none !important;
   display: table-cell !important;
   vertical-align: middle;
 }
 
 body {
-  font-family:'ヒラギノ角ゴ ProN W3','Hiragino Kaku Gothic ProN','メイリオ','Meiryo','ＭＳ Ｐゴシック','MS PGothic',sans-serif;
-  padding:153px 0 0 0;
-  background-color:#eeeeee;
+  font-family: 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  padding: 153px 0 0 0;
+  background-color: #eeeeee;
 }
 
 .hide {
-  display:none;
+  display: none;
 }
 
 .cloak {
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  position:fixed;
-  background-color:#ffffff;
-  z-index:50;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #ffffff;
+  z-index: 50;
 }
 
 .login {
-  width:100%;
-  height:350px;
-  border-width:0;
-  padding:0;
-  margin:0;
+  width: 100%;
+  height: 380px;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
 }
 
 header.main {
-  width:100%;
-  height:88px;
-  top:0;
-  left:0;
-  position:fixed;
-  background-color:#ffffff;
-  padding:20px;
-  margin:0px;
-  z-index:10;
+  width: 100%;
+  height: 88px;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 0px;
+  z-index: 10;
 }
 
 header.main .row {
-  padding:0;
-  margin:0;
-  width:100%;
-  height:48px;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 48px;
 }
 
 header.main .profile-image {
-  width:48px;
-  height:48px;
-  margin-right:10px;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
 }
 
 .user-name {
-  font-size:16px;
-  font-weight:bold;
-  color:#333333;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
 }
 
 header.form {
-  width:100%;
-  height:65px;
-  top:88px;
-  left:0;
-  position:fixed;
-  background-color:#555555;
-  padding:15px 20px;
-  margin:0px;
-  text-align:center;
-  z-index:5;
+  width: 100%;
+  height: 65px;
+  top: 88px;
+  left: 0;
+  position: fixed;
+  background-color: #555555;
+  padding: 15px 20px;
+  margin: 0px;
+  text-align: center;
+  z-index: 5;
 }
 
 div.feed {
-  width:100%;
-  background-color:#ffffff;
-  border-bottom:1px;
-  border-top:0;
-  border-left:0;
-  border-right:0;
-  border-style:solid;
-  border-color:#dddddd;
-  padding:0px 20px;
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color: #dddddd;
+  padding: 0px 20px;
+  word-break: break-all;
 }
 
 div.feed .container {
-  padding:20px 0px !important;
+  padding: 20px 0px !important;
 }
 
 div.feed .media-object {
-  width:48px;
-  height:48px;
+  width: 48px;
+  height: 48px;
 }
 
 div.feed .datetime {
-  color:#cccccc;
-  padding-left:10px;
+  color: #cccccc;
+  padding-left: 10px;
 }
 
 div.feed .exif {
-  color:#cccccc;
-  padding-left:0;
+  color: #cccccc;
+  padding-left: 0;
 }
 
 div.button-load {
-  width:100%;
-  padding:0px 20px;
+  width: 100%;
+  padding: 0px 20px;
+}
+
+div.feed .thumbnail {
+  width: 530px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div.feed .thumbnail #link {
+  text-decoration: none !important;
+}
+
+div.feed .thumbnail .caption {
+  background-color: #f5f5f5;
+}
+
+div.feed .thumbnail:hover .caption {
+  background-color: #eeeeee;
 }
 
 .refresh {
-  padding:0;
-  margin:0;
-  text-align:right;
+  padding: 0;
+  margin: 0;
+  text-align: right;
 }
 
 .menu {
-  margin-left:10px;
+  margin-left: 10px;
 }
 
 .no-padding {
-  padding:0px !important;
+  padding: 0px !important;
 }
 
 .center {
@@ -134,7 +154,7 @@ div.button-load {
 }
 
 .pointer {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .drop-zone {
@@ -149,7 +169,46 @@ div.button-load {
   line-height: 170px;
   text-align: center;
 }
+
 .drop-zone-droped {
   background-color: #eeeeee;
   color: #bbbbbb;
+}
+
+#sel-index-friend {
+  width: 100px;
+}
+
+#input-search-user {
+  width: 80%;
+  float: left;
+}
+
+#button-search-user {
+  float: right;
+  width: 18%;
+}
+
+.search-group {
+  min-height: 55px;
+}
+
+.user-search-result {
+  height: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom-color: grey;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.user-search-result img {
+  height: 50px;
+  margin-right: 15px;
+}
+
+.form-search-add-user input {
+  margin-top: -42px;
+  float: right;
+  width: 18%;
 }

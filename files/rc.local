@@ -1,14 +1,14 @@
-#!/bin/sh -e
-#
-# rc.local
-#
-# This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will "exit 0" on success or any other
-# value on error.
-#
-# In order to enable or disable this script just change the execution
-# bits.
-#
-# By default this script does nothing.
-/root/init.sh
-exit 0
+#!/bin/bash -e
+
+cd /var/www/app/sns/
+
+rake db:create RAILS_ENV=production
+sqlite3 db/production.sqlite3 < /root/bad_sns_production.sql 
+
+mkdir -p tmp/cache
+chown -R www-data.www-data .
+bundle exec unicorn_rails -c config/unicorn.rb -E production -D
+
+/root/MailHog_linux_amd64 &
+
+systemctl daemon-reload

@@ -1,4 +1,4 @@
-class Friend < ApplicationRecord
+class Friend < ActiveRecord::Base
   belongs_to :from_user, :class_name => 'User'
   belongs_to :to_user, :class_name => 'User'
 
@@ -13,5 +13,4 @@ class Friend < ApplicationRecord
     errors.add(:base, '指定されたユーザは既に登録済みです') unless Friend.find_by(from_user_id: self.from_user_id, to_user_id: self.to_user_id).nil?
     return false if errors.any?
   end
-
 end

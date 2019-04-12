@@ -1,29 +1,28 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+  before_action :reject_non_admin_user, only: [:index]
+
+  def index
+    # Admin Only
+    render json: {users: User.all}
+  end
+
   def create
-    stat = User.create params.permit(:login_id, :name, :pass, :icon_file_name)
-    render json: {errors: stat.errors.full_messages}, status: :bad_request and return if stat.errors.any?
-
-    user = User.find_by 'login_id = ?', params[:login_id]
-    icon_file_path = "#{Rails.root}/public/icons/#{user[:icon_file_name]}"
-    user.update icon_file_name: default_icon_path unless File.file? icon_file_path
-
-    token = log_in user
-    render json: {name: user.name, icon: icon_user_path(user), token: token} and return
+    user = User.create params[:user].permit!
+    render json: {errors: user.errors.full_messages}, status: :bad_request and return if user.errors.any?
+    UserMailer.with(user: user, url: request.base_url).welcome.deliver_later
+    log_in user
+    render json: {name: user.name, icon: icon_user_path(user)} and return
   end
 
   def icon
+    user = User.find_by id: params[:id]
+    send_data File.read "#{Rails.root}/public/images/default.png", disposition: 'inline' and return if user.nil?
     begin
-      user = User.find params[:id]
       send_data File.read "#{Rails.root}/public/icons/#{user[:icon_file_name]}", disposition: 'inline'
     rescue
-      send_data File.read Dir["#{Rails.root}/public/icons/presets/*"][0], disposition: 'inline'
+      presets = Dir["#{Rails.root}/public/icons/presets/*"].sort
+      send_data File.read presets[user.id % presets.length], disposition: 'inline'
     end
-  end
-
-  private
-
-  def default_icon_path
-    default_icon_name = File.basename Dir["#{Rails.root}/public/icons/presets/*"].sample
-    'presets/' << default_icon_name
   end
 end

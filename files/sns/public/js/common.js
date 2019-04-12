@@ -1,32 +1,37 @@
 'use strict';
 
 function fetcher(url, request, callback) {
-  let headers = new Headers();
-  headers.append('X-Requested-With', 'Fetch');
-  request['headers'] = headers;
+  request['headers'] = { 'X-Requested-With': 'Fetch' };
   request['credentials'] = 'include';
   request['cache'] = 'no-cache';
 
-  let process = response => {
-    if(response.status === 403) {
-      // サーバからセッションエラー(403)が返却されたら強制ログアウト
-      localStorage.removeItem('name');
-      localStorage.removeItem('icon');
-      top.location = '/'; // ページをリロードしてログイン画面を表示
-      return;
-    } else if(response.status === 502) {
+  const process = response => {
+    if (response.status === 502) {
       alert('サーバを起動していますので、しばらくお待ちください。');
     } else {
-      let contentType = response.headers.get('content-type');
-      if(contentType && contentType.indexOf('application/json') !== -1) {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.indexOf('application/json') !== -1) {
         return response.json().then(json => json);
       }
     }
   };
 
-  fetch(url ,request).then(process).then(callback);
+  fetch(url, request).then(process).then(callback);
 }
 
-var $$ = (id) => document.getElementById(id);
+function getUrlParams(url) {
+  // URLパラメータを抽出して連想配列を作成
+  const params = {};
+  const param_index = url.indexOf("?") + 1;
+  if (!param_index) return params
 
-Node.prototype.prependChild = function(e){ this.insertBefore(e,this.firstChild); }
+  url.slice(param_index).split("&").forEach(param => {
+    const kv = param.split("=");
+    params[kv[0]] = kv[1];
+  });
+  return params;
+}
+
+const $$ = (id) => document.getElementById(id);
+
+Node.prototype.prependChild = function (e) { this.insertBefore(e, this.firstChild); }

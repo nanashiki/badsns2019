@@ -4,10 +4,14 @@ require "rails"
 require "active_model/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
-require 'digest/sha2'
+require "action_mailer/railtie"
 require 'securerandom'
 require 'rmagick'
 require 'jwt'
+require 'open-uri'
+
+OpenURI::Buffer.send :remove_const, 'StringMax' if OpenURI::Buffer.const_defined?('StringMax')
+OpenURI::Buffer.const_set 'StringMax', 0
 
 Bundler.require(*Rails.groups)
 
@@ -18,6 +22,5 @@ module BadSns
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_badsns_session', expire_after: 20.years
   end
 end

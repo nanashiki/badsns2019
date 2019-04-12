@@ -10,10 +10,16 @@ class FriendsController < ApplicationController
   end
 
   def index
-    friend_ids = @current_user.friends_from_user_ids + @current_user.friends_to_user_ids
-    friend_ids.uniq!
+    friend_ids = @current_user.friend_ids
     render json: {} and return if friend_ids.empty?
-    friends = User.where("id IN (#{friend_ids.join(', ')})").order('id DESC')
+    order = params[:order] ? params[:order] : 'name ASC'
+    friends = User.where("id IN (#{friend_ids.join(', ')})").order(order)
+    render json: {friends: friends} and return
+  end
+
+  def search
+    ignore_ids = [@current_user.id] + @current_user.friend_ids
+    friends = User.where("name LIKE '%#{params[:name]}%' AND id NOT IN (#{ignore_ids.join(', ')})").order('name ASC')
     render json: {friends: friends} and return
   end
 end

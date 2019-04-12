@@ -46,7 +46,6 @@ class FeedsController < ApplicationController
   private
 
   def scope_user_ids
-    ids = @current_user.friends_from_user_ids + @current_user.friends_to_user_ids + [@current_user.id]
-    ids.uniq
+    [@current_user.id] + @current_user.friend_ids
   end
 end

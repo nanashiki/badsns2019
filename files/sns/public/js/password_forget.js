@@ -1,25 +1,23 @@
 'use strict';
 
 const main = () => {
-  $$('form-login').addEventListener('submit', (event) => {
+  $$('form-password-forget').addEventListener('submit', (event) => {
     event.preventDefault();
 
     const body = new FormData();
-    body.append('login_id', $$('input-login-id').value);
-    body.append('pass', $$('input-pass').value);
+    body.append('email', $$('input-email').value);
 
     const process = result => {
       if (result.errors) {
-        // ログイン失敗
+        // メール送信失敗
         $$('div-errors').innerHTML = '';
         result.errors.forEach(value => $$('div-errors').innerHTML += `<p class="bg-danger text-danger">${value}</p>`);
       } else {
-        // ログイン成功
-        top.location = '/'; // メイン画面を表示
+        // メール送信成功
+        $$('div-errors').innerHTML = '<p class="bg-success text-success">メールを送信しました</p>';
       }
     }
-
-    fetcher('/sessions', { method: 'POST', body: body }, process);
+    fetcher('/password_reset', { method: 'POST', body: body }, process);
   });
 }
 

@@ -1,19 +1,17 @@
 default: &default
-  adapter: mysql2
+  adapter: sqlite3
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: toor
-  host: localhost
+  timeout: 5000
 
 development:
   <<: *default
-  database: bad_sns_development
+  database: db/development.sqlite3
 
 test:
   <<: *default
-  database: bad_sns_test
+  database: db/test.sqlite3
 
 production:
   <<: *default
-  database: bad_sns_production
+  database: db/production.sqlite3

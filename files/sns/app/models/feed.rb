@@ -1,9 +1,9 @@
-class Feed < ApplicationRecord
+class Feed < ActiveRecord::Base
   belongs_to :user
   before_save :verify_valid_feed
   validates :feed_type, presence: true
   validates :user_id, presence: true
-  validates :comment, length: { maximum: 140 }
+  validates :comment, length: { maximum: 281 }
 
   private
 
@@ -13,5 +13,4 @@ class Feed < ApplicationRecord
     errors.add(:base, '画像が指定されていません') if self.feed_type == 'image' and self.image_file_name.blank?
     return false if errors.any?
   end
-
 end
